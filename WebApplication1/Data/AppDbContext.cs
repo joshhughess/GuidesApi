@@ -1,7 +1,7 @@
 ﻿using Audit.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using GuidesApi.Data.Models;
 using GuidesApi.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace GuidesApi.Data
 {
@@ -14,9 +14,13 @@ namespace GuidesApi.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<AuditItem> AuditLogs { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<AuditItem>()
+               .HasIndex(x => x.Date);
             base.OnModelCreating(builder);
         }
 
