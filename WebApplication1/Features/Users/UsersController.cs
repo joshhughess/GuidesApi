@@ -10,11 +10,28 @@ namespace GuidesApi.Features.Users
 
         public UsersController(IMediator mediator) => _mediator = mediator;
 
-        [HttpPost]
+        [HttpPost("create-edit")]
         [Produces(ContentTypes.Json, Type = typeof(bool))]
         public async Task<IActionResult> Post([FromBody] CreateEditUserCommand command)
         {
             return Ok(await _mediator.Send(command));
+        }
+
+        [HttpGet("collect")]
+        [Produces(ContentTypes.Json, Type = typeof(bool))]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _mediator.Send(new GetUsersCommand()));
+        }
+
+        [HttpGet("collect/{id}")]
+        [Produces(ContentTypes.Json, Type = typeof(bool))]
+        public async Task<IActionResult> Get(string id)
+        {
+            return Ok((await _mediator.Send(new GetUsersCommand
+            {
+                Id = id
+            })).FirstOrDefault());
         }
 
     }

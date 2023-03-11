@@ -25,6 +25,7 @@ namespace GuidesApi.Features.Users
             user.LastName = request.User.LastName;
             user.Email = request.User.Email;
             user.Password = request.User.Password;
+            user.IsDeleted = request.User.IsDeleted;
 
             if (!await _context.Users.AnyAsync(x => x.Id == request.User.Id, cancellationToken))
             {
